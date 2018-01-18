@@ -1,3 +1,5 @@
+# Petteri Markkola
+
 # Tietokantasovelluksen esittelysivu
 
 Yleisiä linkkejä:
@@ -7,4 +9,4 @@ Yleisiä linkkejä:
 
 ## Työn aihe
 
-[Vedonlyönti: Potti OY](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Vedonlyonti.html) 
+[Vedonlyönti: Potti OY (Muokattuna versiona)](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Vedonlyonti.html) 
