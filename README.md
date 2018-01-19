@@ -5,7 +5,7 @@
 Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](https://pmarkkol.users.cs.helsinki.fi/tsohabootstrap/)
-* [Linkki dokumentaatiooni](https://github.com/puhuri666/Tsoha-Bootstrap/blob/master/dokumentaatio.pdf)
+* [Linkki dokumentaatiooni](https://github.com/puhuri666/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 
 ## Työn aihe
 
