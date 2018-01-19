@@ -1,6 +1,5 @@
-# Petteri Markkola
 
-# Tietokantasovelluksen esittelysivu
+# Petteri Markkolan tietokantasovelluksen esittelysivu
 
 Yleisiä linkkejä:
 
