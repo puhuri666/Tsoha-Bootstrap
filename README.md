@@ -1,5 +1,5 @@
 
-# Tämän projektin etenemistä tulee nyt pushattua kahteen repoon, koska Windowsin käyttö ja yleinen sekoilu
+# Tämän projektin etenemistä tulee nyt pushattua kahteen repoon, koska kevyt hämmennys ja yleinen sekoilu
 # /htdocs/ sisältö löytyy täältä: https://github.com/puhuri666/tsohahtdocs
 # sql-tiedostot muokattu myös tähän repoon..,,
 
