@@ -2,7 +2,7 @@
 # Tämän projektin etenemistä tulee nyt pushattua kahteen repoon, koska kevyt hämmennys ja yleistä sekoilua
 # /htdocs/ sisältö löytyy täältä: https://github.com/puhuri666/tsohahtdocs
 # sql-tiedostot muokattu myös tähän repoon..,,
-# dokumentaatio.pdf päivitetty
+# dokumentaatio.pdf päivitettyy tosiaan tänne
 
 # Petteri Markkolan tietokantasovelluksen esittelysivu
 
