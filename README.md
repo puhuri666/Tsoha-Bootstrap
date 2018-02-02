@@ -8,7 +8,7 @@ https://pmarkkol.users.cs.helsinki.fi/tsohabootstrap/users
 # Tämän projektin etenemistä tulee nyt pushattua kahteen repoon, koska kevyt hämmennys ja yleistä sekoilua
 # /htdocs/ sisältö löytyy täältä: https://github.com/puhuri666/tsohahtdocs
 
-# Petteri Markkolan tietokantasovelluksen esittelysivu
+# Tietokantasovelluksen esittelysivu
 
 Yleisiä linkkejä:
 
