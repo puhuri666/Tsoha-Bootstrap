@@ -1,12 +1,18 @@
-# Viikko 3: malliluokka:
-https://github.com/puhuri666/tsohahtdocs/blob/master/app/models/user.php
-https://github.com/puhuri666/tsohahtdocs/blob/master/app/controllers/users_controller.php
+# htdocs repo löytyy osoitteesta https://github.com/puhuri666/tsohahtdocs
 
-# Viikko 3: malliluokan listaus- esittely ja lisäysnäkymä:
-https://pmarkkol.users.cs.helsinki.fi/tsohabootstrap/users
+# Viikko 4: malliluokka vaihtunut vedolyöntikohteisiin
+http://pmarkkol.users.cs.helsinki.fi/tsohabootstrap/
 
-# Tämän projektin etenemistä tulee nyt pushattua kahteen repoon, koska kevyt hämmennys ja yleistä sekoilua
-# /htdocs/ sisältö löytyy täältä: https://github.com/puhuri666/tsohahtdocs
+Vedonlyöntikohteita pystyy poistamaan ja muokkaamaan kirjauduttuaan ylläpitäjätunnuksilla, kun klikkaa halutun ottelun $
+HUOM! Poista mahdolliset välilyönnit kirjautumiskentistä
+
+Ylläpitäjä:
+tunnus: petteri.markkola@hki.fi
+salasana: Apinaorkesteri5
+
+Normaali käyttäjä:
+tunnus: mega@putti.fi
+salasana: PassW0rdZ
 
 # Tietokantasovelluksen esittelysivu
 
