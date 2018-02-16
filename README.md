@@ -1,6 +1,5 @@
 # htdocs repo löytyy osoitteesta https://github.com/puhuri666/tsohahtdocs
 
-# Viikko 4: malliluokka vaihtunut vedolyöntikohteisiin
 http://pmarkkol.users.cs.helsinki.fi/tsohabootstrap/
 
 Vedonlyöntikohteita pystyy poistamaan ja muokkaamaan kirjauduttuaan ylläpitäjätunnuksilla, kun klikkaa halutun ottelun $
