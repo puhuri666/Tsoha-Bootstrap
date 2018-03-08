@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+{% if user_logged_in %}
+    {% if user_logged_in.superuser == 0%}
+    <h2>{{user.firstname}} {{user.lastname}}</h2>
+    <p>Osoite: {{user.address}} {{user.zipcode}} {{user.town}}</p>
+    <p>Saldo: <b>{{user.balance}} €</b></p>
+    <h3>Vetohistoria</h3>
+       <table class="table table-striped">
+       <thead>
+         <tr>
+           <th>Ottelu</th>
+           <th>Veto</th>
+           <th>Panos</th>
+           <th>Kerroin</th>
+           <th>Status</th>
+         </tr>
+       </thead>
+
+       <tbody> 
+           {% for wager in wagers %}
+           <tr>
+             <td>{{wager.hometeam}} - {{wager.awayteam}}</td>
+             <td>{{wager.betting_choice}}</td>
+             <td>{{wager.betting_amount}} €</td>
+             <td>{{wager.betting_odds}}</td>
+             <td>
+                {% if wager.settled %}
+                 <label class="label label-success">RATKAISTU
+                {% else %}
+                 <label class="label label-info">AVOINNA
+                {% endif %}
+            </td>
+           </tr>
+           {% endfor %}
+       </tbody>
+     </table>
+    {% endif %}
+{% endif %}
+{% endblock %}

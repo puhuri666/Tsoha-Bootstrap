@@ -1,8 +1,7 @@
-# htdocs repo löytyy osoitteesta https://github.com/puhuri666/tsohahtdocs
-
 http://pmarkkol.users.cs.helsinki.fi/tsohabootstrap/
 
-Vedonlyöntikohteita pystyy poistamaan ja muokkaamaan kirjauduttuaan ylläpitäjätunnuksilla, kun klikkaa halutun ottelun $
+Vedonlyöntikohteita pystyy poistamaan ja muokkaamaan kirjauduttuaan ylläpitäjätunnuksilla, kun klikkaa halutun ottelun auki vedonlyöntikohteet-sivulta.
+
 HUOM! Poista mahdolliset välilyönnit kirjautumiskentistä
 
 Ylläpitäjä:
@@ -30,4 +29,4 @@ Linkit staattisiin HTML-sivuihin:
 
 ## Työn aihe
 
-[Vedonlyönti: Potti OY (Muokattuna versiona)](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Vedonlyonti.html) 
+[Vedonlyönti: Potti OY (Muokattuna versiona)](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Vedonlyonti.html)

@@ -1,0 +1,70 @@
+
+
+{% extends "base.html" %}
+{% block content %}
+{% if user_logged_in.superuser == 1%}
+<h1>Käyttäjän tiedot</h1>  
+  <h3>{{user.firstname}} {{user.lastname}}</h3>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Katuosoite</th>
+        <th>Postinumero</th>
+        <th>Kaupunki</th>
+        <th>Sähköposti</th>
+        <th>Admin-status</th>
+        <th>Tilin saldo</th>    
+      </tr>
+    </thead>
+
+    <tbody> 
+        <tr>
+          <td>{{user.address}}</td>
+          <td>{{user.zipcode}}</td>
+          <td>{{user.town}}</td>
+          <td>{{user.email}}</td>
+          <td>
+              {% if user.superuser %}
+                <label class="label label-success">ADMIN
+              {% else %}
+                <label class="label label-danger">ASIAKAS
+              {% endif %}
+          </td>
+          <td>{{user.balance}}</td>
+        </tr>
+    </tbody>
+  </table>
+  <h1>Käyttäjän vedot</h1>
+  <table class="table table-striped table-bordered">
+       <thead>
+         <tr>
+           <th>Ottelu</th>
+           <th>Veto</th>
+           <th>Panos</th>
+           <th>Kerroin</th>
+           <th>Status</th>
+         </tr>
+       </thead>
+
+       <tbody> 
+           {% for wager in wagers %}
+           <tr>
+             <td>{{wager.hometeam}} - {{wager.awayteam}}</td>
+             <td>{{wager.betting_choice}}</td>
+             <td>{{wager.betting_amount}} €</td>
+             <td>{{wager.betting_odds}}</td>
+             <td>
+                {% if wager.settled %}
+                 <label class="label label-success">RATKAISTU
+                {% else %}
+                 <label class="label label-info">AVOINNA
+                {% endif %}
+            </td>
+           </tr>
+           {% endfor %}
+       </tbody>
+     </table>
+{% else %}
+mene pois
+{% endif %}
+{% endblock %}

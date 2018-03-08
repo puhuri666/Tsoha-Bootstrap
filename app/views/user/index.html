@@ -1,0 +1,53 @@
+
+{% extends "base.html" %}
+{% block content %}
+{% if user_logged_in %}
+    {% if user_logged_in.superuser == 1%}
+      <h1>Käyttäjät</h1>
+
+      <p>
+        <a href="{{base_path}}/users/new" class="btn btn-success">Lisää käyttäjä</a>
+      </p>
+
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>db_id</th>
+            <th>Nimi</th>
+            <th>Katuosoite</th>
+            <th>Postinumero</th>
+            <th>Kaupunki</th>
+            <th>Sähköposti</th>
+            <th>Admin-status</th>
+            <th>Tilin saldo</th>
+          </tr>
+        </thead>
+
+        <tbody> 
+          {% for user in users %}
+            <tr>
+              <td>{{user.id}}</td>
+              <td><a href="{{base_path}}/users/{{user.id}}">{{user.firstname}} {{user.lastname}}</a></td>
+              <td>{{user.address}}</td>
+              <td>{{user.zipcode}}</td>
+              <td>{{user.town}}</td>
+              <td>{{user.email}}</td>
+              <td>
+                  {% if user.superuser %}
+                    <label class="label label-success">ADMIN
+                  {% else %}
+                    <label class="label label-danger">ASIAKAS
+                  {% endif %}
+              </td>
+              <td>{{user.balance}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+    jaaajaa
+    {% endif %}
+{% else %}
+mene pois
+{% endif %}
+{% endblock %}

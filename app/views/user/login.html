@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+{{error}}
+{{message}}
+
+{% if not user_logged_in %}
+  <h1>Kirjaudu sisään</h1>
+
+  <form method="post" action="{{base_path}}/login">
+    <div class="form-group">
+      <label>Sähköposti</label>
+      <input class="form-control" name="email" value="{{email}}" type="text">
+    </div>
+
+    <div class="form-group">
+      <label>Salasana</label>
+      <input class="form-control" name="password" type="password">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
+  </form>
+{% else %}
+
+{% if user_logged_in.superuser == 1%}
+<h2>Olet kirjautunut ylläpitäjätunnuksella</h2>
+<div style="padding: 8px">
+<p>Muokataksesi vedonlyöntikohteita ja tarkastellaksesi käyttäjiä valitse ylläolevasta valikosta sopiva linkki.</p>
+</div>
+{% endif %}
+
+{% if not user_logged_in.superuser == 1%}
+    <h2>Tervetuloa {{user_logged_in.firstname}} {{user_logged_in.lastname}} ({{user_logged_in.email}})</h2>
+    <div>
+        <p><b>Tilisi saldo on {{user_logged_in.balance}}€</b></p>
+        <h3>
+            <p><a href="{{base_path}}/vedonlyonti">Vedonlyöntiin</a></p>
+            <p><a href="{{base_path}}/controlpanel">Oma sivu</a></p>
+        </h3>
+    </div>
+{% endif %}
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Potti - Vedonlyöntiä jo vuodesta 2018</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            body {
+                margin: 0px;
+                padding: 0px;
+                background-color: #EFEFEF;
+                font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+                font-size: 12pt;
+                
+            }
+            h1 {
+                font-size: 45px;
+                color: #202A33;
+            }
+            h2 {
+                font-size: 30px;
+                color: #202A33;
+            }
+            p {
+                margin: 5px;
+            }
+            input {
+                width: 200px;
+                height: 21px;
+                margin-bottom: 3px;
+                font-size: 9pt;
+                font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+            }
+            button {
+                height: 25px;
+                font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+                font-size: 9pt;  
+            }
+            img {
+                float: left;
+                margin-right: 10px;
+                margin-bottom: 5px;
+            }
+            #kaikenPohja {
+                width: 800px;
+                margin: 0px auto;
+                padding: 0px;
+                padding-bottom: 0px;
+                height: 100vh;
+                background-color: #FFFFFF;
+                border-left: 1px solid #DEDEDE;
+                border-right: 1px solid #DEDEDE;
+            }
+            #ylaPohja {
+                width: 800px;
+                height: 105px;
+                margin: 0px;
+                padding: 0px;
+            }
+            #alaPohja {
+                width: 800px;
+                margin: 0px;
+                padding: 0px;
+                background-color: #FFFFFF;
+                border-left: 1px solid #DEDEDE;
+                border-right: 1px solid #DEDEDE;
+            }
+            #potti {
+                width: 300px;
+                height: 105px;
+                float: left;
+                margin: 0px;
+                padding: 0px;
+                margin-top: 10px;
+                margin-left: 25px;
+                background-image: url("https://i.imgur.com/BGyEuFR.png");
+            }
+            #kirjautuminen {
+                width: 450px;
+                height: 105px;
+                float: right;
+                margin: 0px;
+                padding: 0px;
+                padding-top: 20px;
+                margin-right: 25px;
+                text-align: right;
+                font-size: 9pt;
+            }
+            #body {
+                width: 750px;
+                margin: 0px auto;
+                margin-bottom: 0px;
+                margin-top: 35px;
+                background-color: #FFFFFF;
+            }
+            #menu {
+                width: 750px;
+                margin: 0px auto;
+                text-align: center;
+                background-color: #F1F1F1;
+            }
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: #202A33;
+                text-align: center;
+                font-size: 11pt;
+            }
+
+            li {
+                float: left;
+            }
+
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            li a:hover {
+                background-color: #354554;
+            }
+            #tiedotVasen {
+                width: 125px;
+                float: left;
+            }
+            #tiedotOikea {
+                width: 450px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="kaikenPohja">
+            <div id="ylaPohja">
+                    <div id="potti">
+                    </div>
+                    <div id="kirjautuminen">
+                        <p>Hei, Petteri!</p>
+                        <p><b>Tilin saldo</b>: 489,50€</p>
+                        <button type="submit">Kirjaudu ulos</button>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div id="menu">
+                    <ul>
+                            <li><a href="./etusivu">Etusivu</a></li>
+                            <li><a href="./vedonlyonti">Vedonlyönti</a></li>
+                            <li><a href="./ehdotus">Ehdota vetoa</a></li>
+                            <li style="float: right"><a href="./omasivu">Oma sivu</a></li>
+                            </ul>
+                </div>
+                <div id="body">
+                    <h2>EHDOTA VETOA</h2>
+                    <p>Tällä sivulla voit lähettää meille vapaamuotoisen ehdotuksen kohteesta, jonka haluaisit lisättävän pelilistallemme.</p>
+                    <p>Ylläpito käy <i>ehdottomasti</i> ehdotuksesi huolellisesti läpi.</p>
+                    <form action="">
+                        <textarea name="message" style="width:750px; height:200px;"></textarea>
+                        <br>
+                        <input type="submit" value="Lähetä">
+                      </form>
+            </div>
+    </body>
+</html>

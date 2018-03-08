@@ -1,0 +1,110 @@
+
+{% extends "base.html" %}
+{% block content %}
+{{message}}
+{% if errors %}
+    {% for error in errors %}
+    {{error}}
+    {% endfor %}
+{% endif %}
+{% if user_logged_in %}
+    {% if user_logged_in.superuser == 1%}
+        <h1>Muokkaa vedonlyöntikohdetta</h1>
+        <form method="post" action="{{base_path}}/vedonlyonti/{{matchup.id}}/poista" value="{{matchup.id}}" name="id">
+        <button class="btn btn-danger" type="submit">Poista kohde lopullisesti</button>
+        </form>
+        <h3>Kerroin</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Päivämäärä</th>
+                    <th>Ottelu</th>
+                    <th>Koti</th>
+                    <th>Tasapeli</th>
+                    <th>Vieras</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody> 
+                <tr>
+                    <form method="post" action="{{base_path}}/vedonlyonti/{{matchup.id}}/editodds" value="{{matchup.id}}" name="id">
+                    <td>{{matchup.startdate}}</td>
+                    <td>{{matchup.hometeam}} - {{matchup.awayteam}}</td>
+                    <td><input type="text" class="update" name="homeodds" value="{{matchup.homeodds}}"></td>
+                    <td><input type="text" class="update" name="drawodds" value="{{matchup.drawodds}}"></td>
+                    <td><input type="text" class="update" name="awayodds" value="{{matchup.awayodds}}"></td>
+                    <td><button type="submit" class="btn btn-success">Muuta</button></td>
+                    </form>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Tulos</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Päivämäärä</th>
+                    <th>Ottelu</th>
+                    <th>Koti</th>
+                    <th>Vieras</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody> 
+                <tr>
+                    <form method="post" action="{{base_path}}/vedonlyonti/{{matchup.id}}/editscore" value="{{matchup.id}}" name="id">
+                    <td>{{matchup.startdate}}</td>
+                    <td>{{matchup.hometeam}} - {{matchup.awayteam}}</td>
+                    <td><input type="text" class="update" name="scorehome" value="{{matchup.scorehome}}"></td>
+                    <td><input type="text" class="update" name="scoreaway" value="{{matchup.scoreaway}}"></td>
+                    <td><button type="submit" class="btn btn-success">Muuta</button></td>
+                    </form>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Kohteeseen asetetut vedot</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Vedonlyöjä</th>
+                    <th>Valinta</th>
+                    <th>Panos</th>
+                    <th>Kerroin</th>
+                </tr>
+            </thead>
+
+            <tbody> 
+                {% for wager in wagers %}
+                <tr>
+                    <td><a href="{{base_path}}/users/{{wager.bettor}}">{{wager.bettor}}</a></td>
+                    <td>{{wager.betting_choice}}</td>
+                    <td>{{wager.betting_amount}}</td>
+                    <td>{{wager.betting_odds}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% for wager in wagers %}
+        
+        {% endfor %}
+    {% endif %}
+    {% if user_logged_in.superuser == 0%}
+    <h1>Aseta vetosi</h1>
+    <p>Tilisi saldo on {{user.balance}} €</p>
+    <h3>{{matchup.hometeam}} - {{matchup.awayteam}}</h3> {{matchup.startdate}}
+    
+    <form method="post" action="{{base_path}}/vedonlyonti/{{matchup.id}}/wager" value="{{matchup.id}}" name="id">
+        <p><input type="radio" name="choice" value="1"> 1 ({{matchup.homeodds}}) 
+        <input type="radio" name="choice" value="X"> X ({{matchup.drawodds}})
+        <input type="radio" name="choice" value="2"> 2 ({{matchup.awayodds}})</p>
+        <input type="text" name="betting_amount" class="form-control" value="{{wager.betting_amount}}">
+        <br />
+    <button type="submit" class="btn btn-success">Aseta veto</button>
+    </form>
+    {% endif %}
+{% else %}
+Ole hyvä ja kirjaudu
+{% endif %}
+
+{% endblock %}

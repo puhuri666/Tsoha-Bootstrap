@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if user_logged_in.superuser == 1%}
+<h1>Ylläpitäjä</h1>
+<p>
+  <a href="{{base_path}}/vedonlyonti/lisaa" class="btn btn-success">Lisää vedonlyöntikohde</a>
+</p>
+<h3>Vedonlyöntikohteet</h3>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Päivämäärä</th>
+        <th>Sarja</th>
+        <th>Muokkaa ottelun tietoja</th>
+        <th>1</th>
+        <th>X</th>
+        <th>2</th>
+        <th>Tulos</th>
+      </tr>
+    </thead>
+
+    <tbody> 
+      {% for matchup in matchups %}
+        <tr>
+          <td>{{matchup.startdate}}</td>
+          <td>{{matchup.homeleague}}</td>
+          <td><a href="{{base_path}}/vedonlyonti/{{matchup.id}}">{{matchup.hometeam}} - {{matchup.awayteam}}</a></td>
+          <td>{{matchup.homeodds}}</td>
+          <td>{{matchup.drawodds}}</td>
+          <td>{{matchup.awayodds}}</td>
+          <td>{{matchup.result}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+{{ message }}
+{% for error in errors %}
+{{ error }}
+{% endfor %}
+<h3>Vedonlyöntikohteet</h3>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Päivämäärä</th>
+        <th>Sarja</th>
+        <th>Valitse vetokohde</th>
+        <th>1</th>
+        <th>X</th>
+        <th>2</th>
+      </tr>
+    </thead>
+
+    <tbody> 
+      {% for matchup in matchups %} 
+      {% if matchup.result == 'Ei tulosta' %}
+       <tr>
+          <td>{{matchup.startdate}}</td>
+          <td>{{matchup.homeleague}}</td>
+          {% if user_logged_in %}
+          <td><a href="{{base_path}}/vedonlyonti/{{matchup.id}}">{{matchup.hometeam}} - {{matchup.awayteam}}</a></td>
+          {% else %}
+          <td>{{matchup.hometeam}} - {{matchup.awayteam}}</td>
+          {% endif %}
+          <td>{{matchup.homeodds}}</td>
+          <td>{{matchup.drawodds}}</td>
+          <td>{{matchup.awayodds}}</td>
+        </tr>
+      {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% endblock %}
