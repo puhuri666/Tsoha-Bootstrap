@@ -22,7 +22,7 @@ class WagerController extends BaseController {
                 'matchup' => $id,
                 'betting_amount' => $params['betting_amount']
             ));
-            $errors = array_merge($errors, 'Valitse tulos');
+            $errors = array_push($errors, 'Valitse tulos');
             Redirect::to('/vedonlyonti/'. $id, array('errors' => $errors, 'wager' => $wager));
             return;
         }
@@ -44,6 +44,19 @@ class WagerController extends BaseController {
         } else {
             Redirect::to('/vedonlyonti/'. $id, array('errors' => $errors, 'wager' => $wager));
         }
+    }
+    
+    public static function settleWagers($matchup_id, $betting_result) {
+        $wagersToSettle = Wager::findByMatchup($matchup_id);
+        $wonWagers = array();
+        
+        foreach ($wagersToSettle as $wager) {
+            if (strcmp($betting_result, $wager['betting_choice']) == 0) {
+                array_push($wonWagers, $wager);
+            }
+        }
+        
+        
     }
     
 }

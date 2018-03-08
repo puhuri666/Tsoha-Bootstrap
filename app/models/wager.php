@@ -34,30 +34,13 @@ class Wager extends BaseModel {
         } else if (strcmp($this->betting_choice, '2') === 0) {
             $this->betting_odds = $currentOdds['awayteam'];
         }
-        $errors = $this->reduceBalance();
+        $errors = User::reduceBalance($this->bettor, $this->betting_amount);
         // save
         if (count($errors) === 0) {
             $query = DB::connection()->prepare('INSERT INTO wager(bettor, matchup, betting_choice, betting_amount, betting_odds) '
                     . 'VALUES(:bettor, :matchup, :betting_choice, :betting_amount, :betting_odds)');
             $query->execute(array('bettor' => $this->bettor, 'matchup' => $this->matchup, 'betting_choice' => $this->betting_choice, 'betting_amount' =>
                 $this->betting_amount, 'betting_odds' => $this->betting_odds));
-        }
-        return $errors;
-    }
-
-    public function reduceBalance() {
-        //get
-        $getQuery = DB::connection()->prepare('SELECT balance FROM bettor WHERE id = :id');
-        $getQuery->execute(array('id' => $this->bettor));
-        $currentBalance = $getQuery->fetch();
-        //set
-        $errors = array();
-        if ($currentBalance['balance'] - $this->betting_amount < 0) {
-           array_push($errors, 'Ei tarpeeksi saldoa'); 
-        } else {
-            $newBalance = $currentBalance['balance'] - $this->betting_amount;
-            $setQuery = DB::connection()->prepare('UPDATE bettor SET balance = :balance WHERE id = :id');
-            $setQuery->execute(array('balance' => $newBalance, 'id' => $this->bettor));
         }
         return $errors;
     }

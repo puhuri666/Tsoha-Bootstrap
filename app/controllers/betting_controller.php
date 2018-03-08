@@ -91,6 +91,7 @@ class BettingController extends BaseController {
         $errors = $score->validate();
         if (count($errors) == 0) {
             $score->update();
+            WagerController::settleWagers($id, $betting_result);
             Redirect::to('/vedonlyonti/' . $score->id, array('message' => 'Tulosta muokattu onnistuneesti!'));
         } else {
             Redirect::to('/vedonlyonti/' . $score->id, array('errors' => $errors));
