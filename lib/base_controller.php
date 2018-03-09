@@ -18,4 +18,11 @@ class BaseController {
         }
     }
     
+    public static function check_admin_status() {
+        $user = self::get_user_logged_in();
+        if (!$user->superuser) {
+            Redirect::to('/', array('message' => 'Pääsy evätty!'));
+        }
+    }
+    
 }

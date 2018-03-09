@@ -23,11 +23,7 @@ class BettingController extends BaseController {
     }
 
     public static function createMatchup() {
-        self::check_logged_in();
-        $currentUser = self::get_user_logged_in();
-        if (!$currentUser->superuser) {
-            return;
-        }
+        self::check_admin_status();
         $params = $_POST;
         $errors = array();
         if (!is_numeric($params['hometeam']) || !is_numeric($params['awayteam'])) {
@@ -58,22 +54,14 @@ class BettingController extends BaseController {
     }
 
     public static function deleteMatchup($id) {
-        self::check_logged_in();
-        $currentUser = self::get_user_logged_in();
-        if (!$currentUser->superuser) {
-            return;
-        }
+        self::check_admin_status();
         $matchup = new Matchup(array('id' => $id));
         $matchup->destroy();
         Redirect::to('/vedonlyonti', array('message' => 'Vedonlyöntikohde poistettu'));
     }
 
     public static function updateOdds($id) {
-        self::check_logged_in();
-        $currentUser = self::get_user_logged_in();
-        if (!$currentUser->superuser) {
-            return;
-        }
+        self::check_admin_status();
         $params = $_POST;
         $attributes = array(
             'id' => $id,
@@ -91,11 +79,7 @@ class BettingController extends BaseController {
     }
 
     public static function updateScore($id) {
-        self::check_logged_in();
-        $currentUser = self::get_user_logged_in();
-        if (!$currentUser->superuser) {
-            return;
-        }
+        self::check_admin_status();
         $params = $_POST;
         $betting_result = '';
         if ($params['scorehome'] > $params['scoreaway']) {

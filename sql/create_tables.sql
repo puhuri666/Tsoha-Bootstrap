@@ -7,7 +7,7 @@ CREATE TABLE bettor (
     town character varying(50) NOT NULL,
     email character varying(50) NOT NULL,
     password character varying(50) NOT NULL,
-    balance double precision DEFAULT 0.0 NOT NULL,
+    balance double precision DEFAULT 1500 NOT NULL,
     superuser boolean DEFAULT false NOT NULL
 );
 
@@ -45,7 +45,7 @@ CREATE TABLE wager (
 );
 
 CREATE TABLE current_odds (
-    matchup integer REFERENCES matchup NOT NULL,
+    matchup integer REFERENCES matchups NOT NULL,
     hometeam double precision NOT NULL,
     draw double precision,
     awayteam double precision NOT NULL

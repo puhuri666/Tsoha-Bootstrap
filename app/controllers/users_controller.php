@@ -3,21 +3,21 @@
 class UserController extends BaseController {
 
     public static function index() {
-        self::check_logged_in();
+        self::check_admin_status();
         $users = User::all();
         $user = BaseController::get_user_logged_in();
         View::make('user/index.html', array('users' => $users, 'user' => $user));
     }
 
     public static function show($id) {
-        self::check_logged_in();
+        self::check_admin_status();
         $user = User::find($id);
         $wagers = WagerController::find($id);
         View::make('user/inspect.html', array('user' => $user, 'wagers' => $wagers));
     }
 
     public static function add() {
-        self::check_logged_in();
+        self::check_admin_status();
         $user = BaseController::get_user_logged_in();
         View::make('user/new.html', array('user' => $user));
     }
@@ -30,11 +30,7 @@ class UserController extends BaseController {
     }
 
     public static function create() {
-        self::check_logged_in();
-        $currentUser = self::get_user_logged_in();
-        if (!$currentUser->superuser) {
-            return;
-        }
+        self::check_admin_status();
         $params = $_POST;
 
         $user = new User(array(
@@ -96,11 +92,7 @@ class UserController extends BaseController {
     }
 
     public static function deleteUser($id) {
-        // ainoan superuserin poiston estäminen hieman hölmöllä tavalla:
-        $currentUser = self::get_user_logged_in();
-        if (!$currentUser->superuser) {
-            return;
-        }
+        self::check_admin_status();
         if ($id == 1) {
             Redirect::to('/users', array('message' => 'Puuhaat jotain todella hämärää'));
         }
