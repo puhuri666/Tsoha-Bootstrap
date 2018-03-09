@@ -80,14 +80,14 @@ class WagerController extends BaseController {
         // adding result to lost wagers
         
         foreach ($lostWagers as $wager) {
-            Wager::updateReturn($wager->bettor, $wager->matchup, 0);
+            Wager::updateReturn($wager->id, 0);
         }
 
         // return winnings for each won wager
         
         foreach ($wonWagers as $wager) {
             $amountWon = $wager->betting_amount * $wager->betting_odds;
-            Wager::updateReturn($wager->bettor, $wager->matchup, $amountWon);
+            Wager::updateReturn($wager->id, $amountWon);
             User::settleBet($wager->bettor, $amountWon);
         }
     }

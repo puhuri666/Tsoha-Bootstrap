@@ -2,7 +2,7 @@
 
 class Wager extends BaseModel {
 
-    public $bettor, $matchup, $betting_choice, $betting_amount, $betting_odds, $hometeam, $awayteam, $settled, $return;
+    public $id, $bettor, $matchup, $betting_choice, $betting_amount, $betting_odds, $hometeam, $awayteam, $settled, $return;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -55,6 +55,7 @@ class Wager extends BaseModel {
             foreach ($rows as $row) {
                 $teamNames = Matchup::getTeamNames($row['matchup']);
                 $wager = new Wager(array(
+                    'id' => $row['id'],
                     'bettor' => $row['bettor'],
                     'matchup' => $row['matchup'],
                     'betting_choice' => $row['betting_choice'],
@@ -81,6 +82,7 @@ class Wager extends BaseModel {
             foreach ($rows as $row) {
                 $teamNames = Matchup::getTeamNames($id);
                 $wager = new Wager(array(
+                    'id' => $row['id'],
                     'bettor' => $row['bettor'],
                     'matchup' => $row['matchup'],
                     'betting_choice' => $row['betting_choice'],
@@ -103,9 +105,9 @@ class Wager extends BaseModel {
         $query->execute(array('result' => $betting_result, 'id' => $id));
     }
     
-    public static function updateReturn($bettor, $matchup, $return) {
-        $query = DB::connection()->prepare('UPDATE wager SET return = :return WHERE bettor = :bettor AND matchup = :matchup');
-        $query->execute(array('return' => $return, 'bettor' => $bettor, 'matchup' => $matchup));
+    public static function updateReturn($id, $return) {
+        $query = DB::connection()->prepare('UPDATE wager SET return = :return WHERE id = :id');
+        $query->execute(array('return' => $return, 'id' => $id));
     }
 
 }
