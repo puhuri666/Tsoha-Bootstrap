@@ -28,12 +28,11 @@ class HelloWorldController extends BaseController {
     }
 
     public static function sandbox() {
-        $teamNames = Matchup::getTeamNames(25);
-        Kint::dump($teamNames);
-        Kint::dump($teamNames[0]);
-        Kint::dump($teamNames[1]);
-        $wagers = WagerController::find(3);
-        Kint::dump($wagers);
+        $variable = 333.49;
+        Kint::dump($variable);
+        
+        $rounded = round($variable, 1);
+        Kint::dump($rounded);   
     }
 
 }

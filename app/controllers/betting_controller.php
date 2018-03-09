@@ -9,6 +9,7 @@ class BettingController extends BaseController {
     }
     
     public static function show($id) {
+        self::check_logged_in();
         $user = BaseController::get_user_logged_in();
         $matchup = Matchup::find($id);
         $wagers = WagerController::findByMatchup($id);
@@ -16,11 +17,13 @@ class BettingController extends BaseController {
     }
     
     public static function add() {
+        self::check_logged_in();
         $teams = Team::all();
         View::make('betting/new.html', array('teams' => $teams));
     }
     
     public static function createMatchup() {
+        self::check_logged_in();
         $params = $_POST;
         $errors = array();
         $matchup = new Matchup(array(
@@ -48,12 +51,14 @@ class BettingController extends BaseController {
     }
     
     public static function deleteMatchup($id) {
+        self::check_logged_in();
         $matchup = new Matchup(array('id' => $id));
         $matchup->destroy();
         Redirect::to('/vedonlyonti', array('message' => 'Vedonlyöntikohde poistettu'));
     }
     
     public static function updateOdds($id) {
+        self::check_logged_in();
         $params = $_POST;
         $attributes = array (
             'id' => $id,
@@ -71,6 +76,7 @@ class BettingController extends BaseController {
     }
     
     public static function updateScore($id) {
+        self::check_logged_in();
         $params = $_POST;
         $betting_result = '';
         if ($params['scorehome'] > $params['scoreaway']) {

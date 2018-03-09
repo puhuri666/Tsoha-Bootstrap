@@ -15,6 +15,7 @@ class User extends BaseModel {
         $users = array();
 
         foreach ($rows as $row) {
+            $balance = round($row['balance'], 1);
             $users[] = new User(array(
                 'id' => $row['id'],
                 'firstname' => $row['firstname'],
@@ -24,7 +25,7 @@ class User extends BaseModel {
                 'town' => $row['town'],
                 'email' => $row['email'],
                 'password' => $row['password'],
-                'balance' => $row['balance'],
+                'balance' => $balance,
                 'superuser' => $row['superuser']
             ));
         }
@@ -37,7 +38,8 @@ class User extends BaseModel {
         $row = $query->fetch();
 
         if ($row) {
-            $user = new User(array(
+            $balance = round($row['balance'], 1);
+            $user = new User(array(                
                 'id' => $row['id'],
                 'firstname' => $row['firstname'],
                 'lastname' => $row['lastname'],
@@ -46,7 +48,7 @@ class User extends BaseModel {
                 'town' => $row['town'],
                 'email' => $row['email'],
                 'password' => $row['password'],
-                'balance' => $row['balance'],
+                'balance' => $balance,
                 'superuser' => $row['superuser']
             ));
             return $user;
@@ -67,6 +69,7 @@ class User extends BaseModel {
         $query->execute(array('email' => $params['email'], 'password' => $params['password']));
         $row = $query->fetch();
         if ($row) {
+            $balance = round($row['balance'], 1);
             $user = new User(array(
                 'id' => $row['id'],
                 'firstname' => $row['firstname'],
@@ -76,7 +79,7 @@ class User extends BaseModel {
                 'town' => $row['town'],
                 'email' => $row['email'],
                 'password' => $row['password'],
-                'balance' => $row['balance'],
+                'balance' => $balance,
                 'superuser' => $row['superuser']
             ));
             return $user;
@@ -87,23 +90,33 @@ class User extends BaseModel {
 
     public static function reduceBalance($id, $betting_amount) {
         //get
-        $getQuery = DB::connection()->prepare('SELECT balance FROM bettor WHERE id = :id');
-        $getQuery->execute(array('id' => $id));
-        $currentBalance = $getQuery->fetch();
+        $currentBalance = User::getCurrentBalace($id);
         //set
         $errors = array();
         if ($currentBalance['balance'] - $betting_amount < 0) {
             array_push($errors, 'Ei tarpeeksi saldoa');
         } else {
-            $newBalance = $currentBalance['balance'] - $betting_amount;
+            $newBalance = round($currentBalance['balance'] - $betting_amount, 1);
             $setQuery = DB::connection()->prepare('UPDATE bettor SET balance = :balance WHERE id = :id');
             $setQuery->execute(array('balance' => $newBalance, 'id' => $id));
         }
         return $errors;
     }
-    
-    public static function settleBet() {
+
+    public static function settleBet($id, $balanceToAdd) {
+        $currentBalance = User::getCurrentBalace($id);
         
+        $newBalance = round($currentBalance['balance'] + $balanceToAdd, 1);
+        
+        $setQuery = DB::connection()->prepare('UPDATE bettor SET balance = :balance WHERE id = :id');
+        $setQuery->execute(array('balance' => $newBalance, 'id' => $id));
+    }
+
+    public static function getCurrentBalace($id) {
+        $getQuery = DB::connection()->prepare('SELECT balance FROM bettor WHERE id = :id');
+        $getQuery->execute(array('id' => $id));
+        $currentBalance = $getQuery->fetch();
+        return $currentBalance;
     }
 
 }

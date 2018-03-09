@@ -95,5 +95,10 @@ class Wager extends BaseModel {
         }
         return null;
     }
+    
+    public static function updateResults($id, $betting_result) {
+        $query = DB::connection()->prepare('UPDATE wager SET result = :result, settled = true WHERE matchup = :id');
+        $query->execute(array('result' => $betting_result, 'id' => $id));
+    }
 
 }
