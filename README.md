@@ -1,4 +1,4 @@
-* [Linkki sovellukseeni](https://pmarkkol.users.cs.helsinki.fi/potti/)
+http://pmarkkol.users.cs.helsinki.fi/potti
 
 Tunnukset:
 

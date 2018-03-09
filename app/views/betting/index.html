@@ -40,7 +40,9 @@
 {{ error }}
 {% endfor %}
 <h3>Vedonlyöntikohteet</h3>
+{% if user_logged_in %}
 <p>Klikkaa ottelun nimeä lyödäksesi vetoa</p>
+{% endif %}
 <table class="table table-striped">
     <thead>
       <tr>
