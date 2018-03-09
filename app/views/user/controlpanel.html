@@ -14,6 +14,7 @@
            <th>Panos</th>
            <th>Kerroin</th>
            <th>Status</th>
+           <th>Palautus</th>
          </tr>
        </thead>
 
@@ -31,6 +32,11 @@
                  <label class="label label-info">AVOINNA
                 {% endif %}
             </td>
+            {% if wager.return is empty %}
+            <td></td>
+            {% else %}
+            <td>{{wager.return}} €</td>
+            {% endif %}
            </tr>
            {% endfor %}
        </tbody>

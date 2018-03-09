@@ -24,9 +24,11 @@ class Matchup extends BaseModel {
                         ON m.id = co.matchup');
         $query->execute();
         $rows = $query->fetchAll();
-
+        
+        $matchups = array();
+        
         foreach ($rows as $row) {
-            $matchups[] = new Matchup(array(
+            $matchup = new Matchup(array(
                 'id' => $row['matchup'],
                 'hometeam' => $row['hometeam'],
                 'awayteam' => $row['awayteam'],
@@ -42,6 +44,7 @@ class Matchup extends BaseModel {
                 'awayleague' => $row['awayleague'],
                 'awaysport' => $row['awaysport']
             ));
+            array_push($matchups, $matchup);
         }
         return $matchups;
     }

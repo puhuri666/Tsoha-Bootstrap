@@ -118,5 +118,5 @@ class User extends BaseModel {
         $currentBalance = $getQuery->fetch();
         return $currentBalance;
     }
-
+        
 }

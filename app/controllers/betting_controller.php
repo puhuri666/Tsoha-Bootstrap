@@ -81,7 +81,7 @@ class BettingController extends BaseController {
         $betting_result = '';
         if ($params['scorehome'] > $params['scoreaway']) {
             $betting_result = '1';
-        } else if ($params['scoreaway'] < $params['scoreaway']) {
+        } else if ($params['scorehome'] < $params['scoreaway']) {
             $betting_result = '2';
         } else {
             $betting_result = 'X';

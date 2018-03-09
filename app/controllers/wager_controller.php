@@ -3,16 +3,19 @@
 class WagerController extends BaseController {
 
     public static function find($id) {
+        self::check_logged_in();
         $wagers = Wager::findByPerson($id);
         return $wagers;
     }
 
     public static function findByMatchup($id) {
+        self::check_logged_in();
         $wagers = Wager::findByMatchup($id);
         return $wagers;
     }
 
     public static function create($id) {
+        self::check_logged_in();
         $params = $_POST;
         $errors = array();
 
@@ -49,8 +52,10 @@ class WagerController extends BaseController {
     }
 
     public static function settleWagers($matchup_id, $betting_result) {
+        self::check_logged_in();
         $wagersToSettle = Wager::findByMatchup($matchup_id);
         $wonWagers = array();
+        $lostWagers = array();
         
         // add wager results to db
         
@@ -63,11 +68,26 @@ class WagerController extends BaseController {
                 array_push($wonWagers, $wager);
             }
         }
+        
+        // find lost wagers
+        
+        foreach ($wagersToSettle as $wager) {
+            if (strcmp($betting_result, $wager->betting_choice) != 0) {
+                array_push($lostWagers, $wager);
+            }   
+        }
+        
+        // adding result to lost wagers
+        
+        foreach ($lostWagers as $wager) {
+            Wager::updateReturn($wager->bettor, $wager->matchup, 0);
+        }
 
         // return winnings for each won wager
         
         foreach ($wonWagers as $wager) {
             $amountWon = $wager->betting_amount * $wager->betting_odds;
+            Wager::updateReturn($wager->bettor, $wager->matchup, $amountWon);
             User::settleBet($wager->bettor, $amountWon);
         }
     }
