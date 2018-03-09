@@ -26,6 +26,9 @@ class BettingController extends BaseController {
         self::check_logged_in();
         $params = $_POST;
         $errors = array();
+        if (!is_numeric($params['hometeam']) || !is_numeric($params['awayteam'])) {
+            Redirect::to('/vedonlyonti/lisaa', array('message' => 'Valitse joukkueet'));
+        }
         $matchup = new Matchup(array(
             'startdate' => $params['startdate'],
             'scorehome' => 0,

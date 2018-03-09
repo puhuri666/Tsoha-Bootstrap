@@ -62,6 +62,11 @@ class User extends BaseModel {
         $row = $query->fetch();
         $this->id = $row['id'];
     }
+    
+    public function updateAddress() {
+        $query = DB::connection()->prepare('UPDATE bettor SET address = :address, zipcode = :zipcode, town = :town WHERE id = :id');
+        $query->execute(array('address' => $this->address, 'zipcode' => $this->zipcode, 'town' => $this->town, 'id' => $this->id));
+    }
 
     public static function authenticate() {
         $params = $_POST;
@@ -118,5 +123,27 @@ class User extends BaseModel {
         $currentBalance = $getQuery->fetch();
         return $currentBalance;
     }
+    
+    public function validateAddressInput() {
+        $errors = array();
+        if (!is_numeric($this->zipcode) || $this->zipcode < 0 || strlen((string)$this->zipcode) > 5) {
+            array_push($errors, 'Anna kelvollinen postinumero');
+        }
+        if (!is_string($this->address) || strlen($this->address) > 150 || strlen($this->address) < 5) {
+            array_push($errors, 'Anna kelvollinen katuosoite');
+        }
+        if (!is_string($this->address) || strlen($this->address) > 50 || strlen($this->address) < 2) {
+            array_push($errors, 'Anna kelvollinen postitoimipaikka');
+        }
+        return $errors;
+    }
+    
+    public function destroy() {
+        $deleteWagers = DB::connection()->prepare('DELETE FROM wager WHERE bettor = :id');
+        $deleteWagers->execute(array('id' => $this->id));
         
+        $deleteUser = DB::connection()->prepare('DELETE FROM bettor WHERE id = :id');
+        $deleteUser->execute(array('id' => $this->id));
+    }
+    
 }

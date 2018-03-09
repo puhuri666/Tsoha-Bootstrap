@@ -7,8 +7,8 @@
     {% endfor %}
 {% endif %}
 {% if user_logged_in.superuser == 1%}
-    <h1>Ylläpitäjä</h1>
-    <h3>Vedonlyöntikohteen lisäys</h3>
+    {{message}}
+    <h1>Vedonlyöntikohteen lisäys</h1>
     <select name="hometeam" form="lisays">                      
         <option>Kotijoukkue</option>
         {% for team in teams %}

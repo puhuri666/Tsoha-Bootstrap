@@ -2,9 +2,20 @@
 {% block content %}
 {% if user_logged_in %}
     {% if user_logged_in.superuser == 0%}
-    <h2>{{user.firstname}} {{user.lastname}}</h2>
-    <p>Osoite: {{user.address}} {{user.zipcode}} {{user.town}}</p>
-    <p>Saldo: <b>{{user.balance}} €</b></p>
+    {% for error in errors %}
+    {{error}}<br />
+    {% endfor %}
+    {{message}}
+    <h2>{{user.firstname}} {{user.lastname}} ({{user.email}})</h2>
+    <form method="post" action="{{base_path}}/updateinfo">  
+    <h3>Päivitä osoitteesi</h3>
+    <p>Katuosoite: <input name="address" class="form-control" type="text" value="{{user.address}}"></p>
+    <p>Postinumero: <input name="zipcode" class="form-control" type="text" value="{{user.zipcode}}"></p>
+    <p>Postitoimipaikka: <input name="town" class="form-control" type="text" value="{{user.town}}"></p>
+    <button type="submit" class="btn btn-primary">Päivitä</button>
+    </form>
+    <br />  
+    <p><label class="control-label">Saldo: {{user.balance}} €</label></p>
     <h3>Vetohistoria</h3>
        <table class="table table-striped">
        <thead>
@@ -27,9 +38,13 @@
              <td>{{wager.betting_odds}}</td>
              <td>
                 {% if wager.settled %}
-                 <label class="label label-success">RATKAISTU
+                    {% if wager.return > 0 %}
+                    <label class="label label-success">VOITETTU</label>
+                    {% else %}
+                    <label class="label label-danger">HÄVITTY</label>
+                    {% endif %}
                 {% else %}
-                 <label class="label label-info">AVOINNA
+                <label class="label label-info">AVOINNA</label>
                 {% endif %}
             </td>
             {% if wager.return is empty %}

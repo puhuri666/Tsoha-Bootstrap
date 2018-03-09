@@ -3,6 +3,7 @@
 {% block content %}
 {% if user_logged_in %}
     {% if user_logged_in.superuser == 1%}
+    {{message}}
       <h1>Käyttäjät</h1>
 
       <p>
