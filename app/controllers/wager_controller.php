@@ -16,6 +16,7 @@ class WagerController extends BaseController {
 
     public static function create($id) {
         self::check_logged_in();
+        $currentUser = self::get_user_logged_in();
         $params = $_POST;
         $errors = array();
 
@@ -29,14 +30,14 @@ class WagerController extends BaseController {
             Redirect::to('/vedonlyonti/' . $id, array('errors' => $errors, 'wager' => $wager));
             return;
         }
-        
+
         $roundedBettingAmount = round($params['betting_amount'], 1);
 
         $wager = new Wager(array(
             'bettor' => $_SESSION['user'],
             'matchup' => $id,
             'betting_choice' => $params['choice'],
-            'betting_amount' => $roundedBettingAmount   
+            'betting_amount' => $roundedBettingAmount
         ));
 
         if (count($errors) > 0) {
@@ -53,44 +54,47 @@ class WagerController extends BaseController {
 
     public static function settleWagers($matchup_id, $betting_result) {
         self::check_logged_in();
+        $currentUser = self::get_user_logged_in();
+        if (!$currentUser->superuser) {
+            return;
+        }
         $wagersToSettle = Wager::findByMatchup($matchup_id);
         $wonWagers = array();
         $lostWagers = array();
-        
+
         // add wager results to db
-        
+
         Wager::updateResults($matchup_id, $betting_result);
-        
+
         // find won wagers
-        
+
         foreach ($wagersToSettle as $wager) {
             if (strcmp($betting_result, $wager->betting_choice) == 0) {
                 array_push($wonWagers, $wager);
             }
         }
-        
+
         // find lost wagers
-        
+
         foreach ($wagersToSettle as $wager) {
             if (strcmp($betting_result, $wager->betting_choice) != 0) {
                 array_push($lostWagers, $wager);
-            }   
+            }
         }
-        
+
         // adding result to lost wagers
-        
+
         foreach ($lostWagers as $wager) {
             Wager::updateReturn($wager->id, 0);
         }
 
         // return winnings for each won wager
-        
+
         foreach ($wonWagers as $wager) {
             $amountWon = $wager->betting_amount * $wager->betting_odds;
             Wager::updateReturn($wager->id, $amountWon);
             User::settleBet($wager->bettor, $amountWon);
         }
     }
-    
-    
+
 }

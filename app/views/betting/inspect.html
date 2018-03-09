@@ -9,6 +9,7 @@
 {% endif %}
 {% if user_logged_in %}
     {% if user_logged_in.superuser == 1%}
+        {% if matchup.betting_result == 'Ei tulosta' %}
         <h1>Muokkaa vedonlyöntikohdetta</h1>
         <form method="post" action="{{base_path}}/vedonlyonti/{{matchup.id}}/poista" value="{{matchup.id}}" name="id">
         <button class="btn btn-danger" type="submit">Poista kohde lopullisesti</button>
@@ -63,6 +64,11 @@
                 </tr>
             </tbody>
         </table>
+        {% else %}
+        <h1>{{matchup.hometeam}} - {{matchup.awayteam}}</h1>
+        <h3>{{matchup.startdate}}</h3>
+        <p>Tulos: {{matchup.scorehome}} - {{matchup.scoreaway}}</p>
+        {% endif %}
         <h3>Kohteeseen asetetut vedot</h3>
         <table class="table table-striped">
             <thead>
@@ -71,6 +77,7 @@
                     <th>Valinta</th>
                     <th>Panos</th>
                     <th>Kerroin</th>
+                    <th>Palautus</th>
                 </tr>
             </thead>
 
@@ -81,6 +88,7 @@
                     <td>{{wager.betting_choice}}</td>
                     <td>{{wager.betting_amount}}</td>
                     <td>{{wager.betting_odds}}</td>
+                    <td>{{wager.return}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

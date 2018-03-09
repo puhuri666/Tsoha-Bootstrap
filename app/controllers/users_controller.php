@@ -31,6 +31,10 @@ class UserController extends BaseController {
 
     public static function create() {
         self::check_logged_in();
+        $currentUser = self::get_user_logged_in();
+        if (!$currentUser->superuser) {
+            return;
+        }
         $params = $_POST;
 
         $user = new User(array(
@@ -90,19 +94,22 @@ class UserController extends BaseController {
             Redirect::to('/controlpanel', array('errors' => $errors));
         }
     }
-    
+
     public static function deleteUser($id) {
         // ainoan superuserin poiston estäminen hieman hölmöllä tavalla:
-        
+        $currentUser = self::get_user_logged_in();
+        if (!$currentUser->superuser) {
+            return;
+        }
         if ($id == 1) {
             Redirect::to('/users', array('message' => 'Puuhaat jotain todella hämärää'));
         }
-        
+
         self::check_logged_in();
         $user = self::get_user_logged_in();
         if ($user->superuser) {
             $userToDelete = new User(array(
-               'id' => $id 
+                'id' => $id
             ));
             $userToDelete->destroy();
             Redirect::to('/users', array('message' => 'Käyttäjä poistettu!'));
